@@ -1,0 +1,29 @@
+{
+	"name": "fridaydotmoe-api",
+	"version": "1.0.0",
+	"description": "Backend GraphQL API for friday.moe",
+	"main": "dist/index.js",
+	"scripts": {
+		"start": "ts-node-dev --transpile-only src/index.ts",
+		"typecheck": "tsc --noEmit --watch",
+		"generate": "prisma generate",
+		"migrate": "prisma migrate dev"
+	},
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@prisma/client": "^3.10.0",
+		"apollo-server": "^3.6.3",
+		"graphql": "^15.8.0",
+		"lodash": "^4.17.21",
+		"nexus": "^1.2.0"
+	},
+	"devDependencies": {
+		"@types/jest": "^27.4.1",
+		"@types/lodash": "^4.14.179",
+		"jest": "^27.5.1",
+		"prisma": "^3.10.0",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.6.2"
+	}
+}

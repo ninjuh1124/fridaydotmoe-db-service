@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  fullname String @id
+  name String
+  author_flair_type String?
+  author_flair_template_id String?
+  author_flair_richtext String?
+  author_flair_text String?
+  author_flair_background_color String?
+  comments Comment[]
+  threads Thread[] @ignore
+
+  @@unique([fullname, name])
+  @@index([fullname, name])
+}
+
+model Thread {
+  name String @id
+  author_fullname String
+  permalink String
+  url String
+  created Int
+  created_utc Int
+  body String?
+
+  author User @relation(fields: [author_fullname], references: [fullname])
+  comments Comment[]
+}
+
+model Comment {
+  link_id String
+  id String
+  author_fullname String
+  parent_id String
+  body String
+  edited Boolean
+  permalink String
+  name String @id
+  created Int
+  created_utc Int
+  depth Int
+
+  author User @relation(fields: [author_fullname], references: [fullname])
+  thread Thread @relation(fields: [link_id], references: [name])
+
+  @@unique([link_id, id, permalink])
+  @@index([link_id, id])
+}
